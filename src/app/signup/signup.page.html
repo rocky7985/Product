@@ -1,0 +1,72 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Signup</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<!-- <ion-content> -->
+  <ion-content class="ion-padding signup-content">
+
+
+  <form [formGroup]="signupForm" (ngSubmit)="signup()" class="signup-form">
+
+    <ion-item lines ="none">
+      <ion-label position = "stacked">Name</ion-label>
+      <ion-input type="text" formControlName="name" placeholder="Enter Name"></ion-input>
+      <ion-note slot="error" *ngIf="signupForm.get('name')?.hasError('required') && (signupForm.get('name')?.dirty || signupForm.get('name')?.touched)">
+        This field is required.
+      </ion-note>
+    </ion-item>
+
+    <ion-item lines ="none">
+      <ion-label position="stacked">Email</ion-label>
+      <ion-input type="text" formControlName="email" placeholder="Enter Email"></ion-input>
+      <ion-note slot="error" *ngIf="signupForm.get('email')?.hasError('required') && (signupForm.get('email')?.dirty || signupForm.get('email')?.touched)">
+        This field is required.
+      </ion-note>
+    </ion-item>
+
+    <ion-item lines ="none">
+      <ion-label position="stacked">Phone</ion-label>
+      <ion-input type="tel" formControlName="phone" placeholder="Enter Phone"></ion-input>
+      <ion-note slot="error" *ngIf="signupForm.get('phone')?.hasError('required') && (signupForm.get('phone')?.dirty || signupForm.get('phone')?.touched)">
+        This field is required.
+      </ion-note>
+
+      <ion-note slot="end" *ngIf="signupForm.get('phone')?.hasError('minlength') || signupForm.get('phone')?.hasError('maxlength')" color="danger">
+        Phone No. must be 10 numbers long.
+      </ion-note>
+    </ion-item>
+
+    <ion-item lines ="none">
+      <ion-label position="stacked">Address</ion-label>
+      <ion-input type="text" formControlName="address" placeholder="Enter address"></ion-input>
+      <ion-note slot="error" *ngIf="signupForm.get('address')?.hasError('required') && (signupForm.get('address')?.dirty || signupForm.get('address')?.touched)">
+        This field is required.
+      </ion-note>
+    </ion-item> 
+
+    <ion-item lines ="none">
+      <ion-label position="stacked">Password</ion-label>
+      <ion-input type="password" formControlName="password" placeholder="Enter Password"></ion-input>
+      <ion-note slot="error" *ngIf="signupForm.get('password')?.hasError('required') && (signupForm.get('password')?.dirty || signupForm.get('password')?.touched)">
+        This field is required.
+      </ion-note>
+    </ion-item>
+
+    <ion-item lines ="none">
+      <ion-label position="stacked">Confirm Password</ion-label>
+      <ion-input type="password" formControlName="confirmPassword" placeholder="Enter confirmPassword"></ion-input>
+      <ion-note slot="error" *ngIf="signupForm.value.password && signupForm.value.confirmPassword !== signupForm.value.password">
+         Password and Confirm Password do not match!
+      </ion-note>
+    </ion-item>
+
+    <ion-button type="submit" expand="block" [disabled]="signupForm.invalid">Register</ion-button>
+    </form>
+
+    <div class="login-link-container">
+    <a [routerLink]="['/login']">Go to Login</a></div>
+    </ion-content>
+
+

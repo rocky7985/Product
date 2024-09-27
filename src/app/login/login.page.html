@@ -1,0 +1,47 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title class="text-center">Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding login-content">
+  <form [formGroup]="loginForm" (ngSubmit)="login()"  class="login-form">
+
+    <ion-item>
+      <ion-label position="floating">Username</ion-label>
+      <ion-input type="text" formControlName="email" ></ion-input>
+      <ion-note slot="error"
+        *ngIf="loginForm.get('email')?.hasError('required') && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)"
+        color="danger">
+        This field is required.
+      </ion-note>
+      </ion-item>
+
+    <ion-item>
+    <ion-label position="floating">Password</ion-label>
+      <ion-input [type]="text" formControlName="password"></ion-input>
+      <a class="type-toggle" (click)="toggleShow()">
+      <ion-icon slot="end" class="show-option" (click)="changetype()"  [name]="name" ></ion-icon>
+        </a>
+
+        <ion-note slot="end" class="error-message"  *ngIf= "loginForm.get('password')?.hasError('required') && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)"
+        color="danger">
+        Password is required.
+      </ion-note>
+    </ion-item>
+
+    <ion-item lines = "none">
+    <ion-checkbox formControlName="rememberMe" slot="start"></ion-checkbox>
+      <ion-label>RememberMe</ion-label>
+    </ion-item>
+
+    <ion-button type="submit" expand="block" [disabled]="loginForm.invalid">Login</ion-button>
+   </form>
+
+<div class="signup-link">
+ <a [routerLink]="['/signup']">Go to Signup</a>
+</div>
+
+</ion-content>
+  
+

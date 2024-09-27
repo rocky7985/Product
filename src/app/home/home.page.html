@@ -1,0 +1,56 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="logout()">Logout</ion-button>
+    </ion-buttons>
+    <ion-title>Home</ion-title>
+    <ion-buttons slot="end">
+      <ion-icon name="cart-outline" [routerLink]="['/cart']"></ion-icon>
+      <ion-badge *ngIf="cartCount.length < 10"  color="danger" >{{ getCartCount() }}</ion-badge>
+      <ion-badge *ngIf="cartCount.length >= 10"  color="danger" >9+</ion-badge>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-grid>
+    <ion-row *ngFor="let pair of productPairs">
+      <ion-col size="6" *ngFor="let list of pair">
+        <ion-card class="product-card">
+          <img [src]="list.image" class="product-image">
+          <ion-card-content>
+            <ion-card-title class="product-title">{{ list.title }}</ion-card-title>
+            <ion-icon name="information-outline" color="tertiary"
+              (click)="presentPopover($event, list.description)">Description</ion-icon>
+
+            <div class="stars">
+              <ion-icon *ngFor="let star of rateCount(list.rating.rate)" [name]="star" color="warning"></ion-icon>
+            </div>
+            <ion-card-subtitle>Rating: {{ list.rating.rate | number: '1.1-1' }}</ion-card-subtitle>
+
+            <ion-card-subtitle color="primary"> ${{ list.price }}</ion-card-subtitle>
+            <ion-card-subtitle>Category: {{ list.category }}</ion-card-subtitle>
+
+            <div *ngIf="isInCart(list)">
+              <ion-chip color="success">Added</ion-chip>
+            </div>
+            <div *ngIf="!isInCart(list)">
+              <ion-icon name="cart-outline" (click)="addtoCart(list)"></ion-icon>
+            </div>
+
+            <!-- <p>Available:{{ list.rating.count }} </p> -->
+          </ion-card-content>
+        </ion-card>
+      </ion-col></ion-row></ion-grid>
+  <ion-popover [isOpen]="isOpen" (didDismiss)="isOpen = false">
+    <ng-template>
+      <ion-content class="ion-padding">{{ popoverDescription }}</ion-content>
+    </ng-template>
+  </ion-popover>
+
+  <ion-infinite-scroll (ionInfinite)="loadMoreItems($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more products...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

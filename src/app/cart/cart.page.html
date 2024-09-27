@@ -1,0 +1,48 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-icon name="arrow-back-outline" color="primary" [routerLink]="['/home']"></ion-icon>
+    </ion-buttons>
+    <ion-title>Cart</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-label *ngIf="totalItems > 0" color="danger" class="total-items-label"> TotalItems:{{totalItems}}</ion-label>
+
+  <ion-list>
+    <ion-item *ngFor="let item of cartItems">
+
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>{{item.title}}</ion-card-title></ion-card-header>
+        <ion-card-content>
+          <ion-thumbnail slot="start">
+            <img [src]="item.image">
+          </ion-thumbnail>
+
+          <ion-label>
+            <ion-card-subtitle color="primary" class="total-items-label">Price:{{item.price |
+              currency}}</ion-card-subtitle>
+          </ion-label>
+
+          <ion-buttons slot="end">
+            <ion-label color="dark" class="total-items-label">Quantity:</ion-label>
+            <ion-icon name="remove-outline" (click)="decreaseQuantity(item)"></ion-icon>
+            <ion-label class="total-items-label">{{item.quantity}}</ion-label>
+            <ion-icon name="add-outline" (click)="increaseQuantity(item)"></ion-icon>
+          </ion-buttons>
+
+          <!-- <ion-label class="total-items-label">Available: {{ updatedCount(i) }}</ion-label> -->
+          <ion-label class="total-items-label" color="danger">Left Stocks: {{ updatedCounts.get(item.id) || 0 }}</ion-label>
+
+
+          <ion-chip (click)="deleteProduct(item)" class="ion-chip">Delete</ion-chip>
+        </ion-card-content>
+      </ion-card>
+    </ion-item>
+    <ion-label  *ngIf="totalPrice > 0" color="secondary" class="total-price-label"> SubTotal:{{totalPrice |
+      currency}}</ion-label>
+
+  </ion-list>
+</ion-content>

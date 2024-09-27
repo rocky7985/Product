@@ -1,0 +1,41 @@
+.login-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    padding: 16px;
+  }
+  
+  .login-form {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  .signup-link {
+    text-align: center;
+    margin-top: 16px;
+    font-weight: bold;
+
+  }
+  
+  ion-input[type="password"] {
+    width: calc(100% - 48px); /* Adjusting width to make room for the eye icon */
+  }
+  
+  ion-icon.show-option {
+    cursor: pointer;
+    font-size: 20px;
+    margin-right: 8px;
+  }
+
+  .error-message {
+    // margin-top: 4px;
+    color: var(--ion-color-danger); /* Use the danger color for error messages */
+    font-size: 12px;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+  
